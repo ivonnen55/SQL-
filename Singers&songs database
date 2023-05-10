@@ -1,0 +1,30 @@
+--create a singer/song databse
+
+CREATE TABLE singers (id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT , birthplace TEXT, age INTEGER);
+
+INSERT INTO singers (first_name, last_name, birthplace, age) VALUES ("Lana", "Del Rey","New York",37);
+INSERT INTO singers (first_name, last_name, birthplace, age) VALUES ("Stevie", "Nicks","Arizona", 74);
+INSERT INTO singers (first_name, last_name, birthplace, age) VALUES ("Miley", "Cyrus", "Tennessee", 30);
+INSERT INTO singers (first_name, last_name, birthplace, age) VALUES ("Taylor", "Swift", "Pennsylvania", 30);
+INSERT INTO singers (first_name, last_name, birthplace, age) VALUES ("SZA", "N/A", "Missouri", 33);
+
+CREATE TABLE songs (id INTEGER PRIMARY KEY, singers_id INTEGER, title TEXT, released INTEGER);
+
+INSERT INTO songs (singers_id, title, released) VALUES (1,"Born To Die", 2012);
+INSERT INTO songs (singers_id, title, released) VALUES (2,"Edge of Seventeen", 1981);
+INSERT INTO songs (singers_id, title, released) VALUES ( 3,"River", 2023);
+INSERT INTO songs (singers_id, title, released) VALUES (4,"Cardigan", 2020);
+INSERT INTO songs (singers_id, title, released) VALUES (5, "Garden", 2017);
+INSERT INTO songs (singers_id, title, released) VALUES (2,"Rhiannon", 1975);
+INSERT INTO songs (singers_id, title, released) VALUES (1,"Pretty When You Cry", 2014);
+INSERT INTO songs (singers_id, title, released) VALUES (4,"Mine", 2010);
+INSERT INTO songs (singers_id, title, released) VALUES (5,"Ghost in the Machine", 2022);
+
+--display all data from database
+SELECT * FROM singers;
+
+--display song titles with their corresponding singers
+SELECT singers.first_name, singers.last_name, songs.title
+FROM singers
+JOIN songs
+ON singers.id = songs.id;
