@@ -1,0 +1,32 @@
+-- Here is the SQL code i wrote to extract some data from the store database--
+
+1. display customer information and order by name in alphabetical order
+   
+   SELECT FirstName, LastName, Phone
+    FROM customers
+    ORDER BY FirstName
+    
+2. display albums with corresponding artist
+
+    SELECT albums.Title AS album_title, artists.Name AS artist
+    FROM albums 
+    JOIN artists 
+    ON albums.ArtistId=artists.ArtistId
+    ORDER BY albums.Title
+    
+3. display albums with titles that begin with "M"
+
+  SELECT * FROM albums 
+  WHERE Title LIKE 'M%' ;
+  
+4. what is total purchase amount in Argentina?
+
+    SELECT BillingCountry, SUM(Total) AS total_spent
+    FROM invoices 
+    WHERE BillingCountry='Argentina';
+    
+5. what is total # of tracks sold?
+  
+    SELECT COUNT(Quantity) AS Total_num_of_tracks
+ FROM invoice_items;
+ 
