@@ -1,0 +1,90 @@
+--Analytics on digital media store using SQL --
+
+1. Show Customers (their full names, customer ID, and country) who are not in the US. 
+SELECT Customerid, FirstName, LastName, Country
+FROM customers 
+WHERE Country <> 'USA'
+
+2. Show only the Customers from Brazil.
+SELECT * 
+FROM Customers 
+WHERE Country='Brazil';
+
+3. Find the Invoices of customers who are from Brazil. 
+SELECT cust.FirstName, cust.LastName, inv.invoiceid,inv.InvoiceDate,inv. BillingCountry
+FROM Customers cust
+JOIN invoices inv
+ON cust.CustomerId=inv.CustomerId
+WHERE BillingCountry='Brazil';
+
+4. Show the Employees who are Sales Agents.
+SELECT FirstName, LastName, title
+from employees
+WHERE title='Sales Support Agent';
+
+5. Find a unique/distinct list of billing countries from the Invoice table.
+SELECT DISTINCT BillingCountry
+FROM invoices;
+
+6. invoice total,customer name, country, sales agent name for all invoices and cusomters
+SELECT total,
+ customers.Country,
+ customers.FirstName AS CustomerFirstname,
+ customers.LastName AS CustomerLastname,
+  employees.FirstName AS SalesAgentFirstName, 
+  employees.LastName AS SalesAgentLastName
+FROM invoices
+JOIN customers ON invoices.CustomerId=customers.CustomerId
+JOIN employees ON customers.SupportRepId=employees.EmployeeId;
+
+7. How many Invoices were there in 2009?
+SELECT COUNT(*)
+FROM invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+8.What are the total sales for 2009? 
+SELECT SUM(total)
+from invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+9. a query that includes the purchased track name with each invoice line ID.
+SELECT name, InvoiceLineId
+FROM tracks
+JOIN invoice_items
+ON tracks.TrackId=invoice_items.TrackId;
+
+10. query that includes the purchased track name AND artist name with each invoice line ID.
+SELECT t.name AS Track, artists.name AS Artist, i.InvoiceLineId
+FROM tracks t
+JOIN invoice_items i
+ON t.TrackId=i.TrackId
+JOIN albums a
+ON t.AlbumId=a.AlbumId
+JOIN artists
+ON a.ArtistID=artists.ArtistId;
+
+11. tracks, album name, media type,grenre
+SELECT a.Title AS Album, t.name AS Track,m.name AS MediaType, g.Name AS Genre
+FROM albums a
+JOIN tracks t
+ON a.AlbumId=t.AlbumId
+JOIN media_types m
+ON t.MediaTypeId=m.MediaTypeId
+Join genres g 
+ON t.GenreId=g.GenreId;
+
+12.Show the total sales made by each sales agent. 
+SELECT 
+e.FirstName,
+ e.LastName,
+ROUND(SUM(i.total),2) AS totalSales
+FROM employees e
+JOIN customers c
+ON e.EmployeeId=c.SupportRepId
+JOIN invoices i
+ON c.CustomerId=i.CustomerId
+GROUP BY e.FirstName;
+
+
+
+
