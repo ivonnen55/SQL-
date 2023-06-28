@@ -1,0 +1,30 @@
+--Here the SQL I did for an Amazon Database where I gathered information on product reviews--
+
+SELECT * FROM Reviews 
+LIMIT 10; 
+
+SELECT MAX(Score)
+FROM Reviews; 
+
+SELECT MIN(Score)
+FROM Reviews; 
+
+SELECT COUNT(Score)
+FROM Reviews
+WHERE Score="5";
+
+SELECT ProductId, Summary 
+FROM Reviews 
+ORDER BY Score DESC; 
+
+SELECT  HelpfulnessNumerator, HelpfulnessDenominator, Score, Count(score)
+FROM Reviews 
+WHERE Score
+IN (1,2,3)
+GROUP BY Score
+ORDER BY Score; 
+
+SELECT AVG(Score)
+FROM Reviews
+
+
